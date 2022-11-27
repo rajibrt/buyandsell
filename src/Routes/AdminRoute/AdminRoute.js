@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import useAdmin from '../../../hooks/useAdmin';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useAdmin from '../../hooks/useAdmin';
 import Loading from '../../Pages/Shared/Loading/Loading';
-
 
 
 const AdminRoute = ({ children }) => {
@@ -22,15 +21,3 @@ const AdminRoute = ({ children }) => {
 };
 
 export default AdminRoute;
-
-// import React from 'react';
-
-// const AdminRoute = () => {
-//     return (
-//         <div>
-
-//         </div>
-//     );
-// };
-
-// export default AdminRoute;

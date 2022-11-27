@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AllPhone = () => {
+const AllPhones = () => {
     return (
         <div>
             <h2>All Phone</h2>
@@ -8,4 +8,4 @@ const AllPhone = () => {
     );
 };
 
-export default AllPhone;
+export default AllPhones;

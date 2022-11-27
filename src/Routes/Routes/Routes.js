@@ -19,6 +19,7 @@ import MyPhone from "../../Pages/Dashboard/MyPhone/MyPhone";
 import BookedPhone from "../../Pages/Dashboard/BookedPhone/BookedPhone";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
+import AllPhones from "../../Pages/Dashboard/AllPhones/AllPhones";
 
 export const router = createBrowserRouter([
     {
@@ -90,12 +91,18 @@ export const router = createBrowserRouter([
                 element: <MyPhone></MyPhone>
             },
             {
+                path: '/dashboard/allphones',
+                element: <AdminRoute><AllPhones /></AdminRoute>
+            },
+            {
                 path: '/dashboard/allbuyers',
                 element: <AdminRoute><AllBuyers /></AdminRoute>
             },
             {
                 path: '/dashboard/allsellers',
-                element: <AdminRoute><AllSellers /></AdminRoute>
+                element: <AdminRoute><AllSellers /></AdminRoute>,
+                loader: () => fetch('http://localhost:4000/users?role=Seller')
+
             },
             {
                 path: '/dashboard/adddoctor',
