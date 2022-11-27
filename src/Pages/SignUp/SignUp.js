@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
@@ -13,14 +13,15 @@ const SignUp = () => {
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail)
     const location = useLocation();
-    const navigate = useNavigate();
 
-    const from = location.state?.from?.pathname || '/';
 
     if (token) {
         navigate("/")
 
     }
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || '/';
 
     const handleSignUp = (data) => {
         console.log(data);
@@ -37,6 +38,10 @@ const SignUp = () => {
                 updateUser(userInfo)
                     .then(() => {
                         saveUser(data.name, data.email, data.role);
+                        <div>
+                            {toast.success('Service added successfully!')}
+                            < Toaster />
+                        </div>
                     })
                     .catch(error => console.log(error));
             })
@@ -58,11 +63,20 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
+                // getUserToken(email);
                 setCreatedUserEmail(email);
             })
     }
-
-
+    // const getUserToken = email => {
+    //     fetch(`http://localhost:4000/jwt?email=${email}`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             if (data.accessToken) {
+    //                 localStorage.setItem('accessToken', data.accessToken);
+    //                 navigate('/');
+    //             }
+    //         });
+    // }
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7 shadow-lg rounded-2xl'>
@@ -101,6 +115,7 @@ const SignUp = () => {
                         {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
                     </div>
                     <input className='btn w-full bg-accent my-4' value="Sign Up" type="submit" />
+                    < Toaster />
                     <p>Already have an account? <Link to='/login' className='text-secondary'>Please login</Link></p>
                     <div className="divider text-accent">OR</div>
                     <button className='btn w-full bg-white text-accent my-4 hover:text-white'>CONTINUE WITH GOOGLE</button>
