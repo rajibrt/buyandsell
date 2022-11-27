@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import Navbar from '../../Shared/Navbar/Navbar';
+import Navbar from '../Pages/Shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
     return (
@@ -20,9 +20,7 @@ const DashboardLayout = () => {
                         <li><Link to='/dashboard'>Booked Mobile</Link></li>
                         {
                             <>
-                                <li><Link to='/dashboard/allusers'>Paid</Link></li>
-                                <li><Link to='/dashboard/adddoctor'>Add A Doctor</Link></li>
-                                <li><Link to='/dashboard/managedoctors'>Manage Doctors</Link></li>
+                                <li><Link to='/dashboard/paiddone'>Paid</Link></li>
                             </>
                         }
 

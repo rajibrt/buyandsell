@@ -50,10 +50,11 @@ const SubmitMobile = () => {
                     mobileno: data.mobileno,
                     description: data.description,
                     name: data.model,
-                    price: data.price,
+                    salesPrice: data.salesPrice,
                     image: imgData.data.url,
                     seller: user.email,
                     purchasesDate: purchaseDate,
+                    originalPrice: data.originalPrice,
                     postDate: submissionDate
                 }
 
@@ -127,9 +128,16 @@ const SubmitMobile = () => {
                         })} className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div className="form-control w-full max-w-xs ">
-                        <label className="label"> <span className="label-text">Price</span></label>
-                        <input type="text" {...register("price", {
-                            required: "Price required",
+                        <label className="label"> <span className="label-text">Original Price</span></label>
+                        <input type="text" {...register("originalPrice", {
+                            required: "Original price required",
+                        })} className="input input-bordered w-full max-w-xs" />
+                        {errors.price && <p className='text-red-600'>{errors.price?.message}</p>}
+                    </div>
+                    <div className="form-control w-full max-w-xs ">
+                        <label className="label"> <span className="label-text">Sales Price</span></label>
+                        <input type="text" {...register("salesPrice", {
+                            required: "Sales price required",
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.price && <p className='text-red-600'>{errors.price?.message}</p>}
                     </div>

@@ -1,10 +1,8 @@
 import { createBrowserRouter } from "react-router-dom"
 import Main from "../../Layout/Main"
-import AllPhone from "../../Pages/Dashboard/AllPhone/AllPhone";
 import AllSeller from "../../Pages/Dashboard/AllSeller/AllSeller";
 import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
-import DashboardLayout from "../../Pages/Dashboard/DashboardLayout/DashboardLayout";
 import Payment from "../../Pages/Dashboard/Payment/Payment";
 import Home from "../../Pages/Home/Home"
 import Login from "../../Pages/Login/Login";
@@ -17,6 +15,8 @@ import SubmitMobile from "../../Pages/AddMobile/SubmitMobile";
 import SingleCategory from "../../Pages/SingleCategory/SingleBrand";
 import SingleMobile from "../../Pages/SingleMobile/SingleMobile";
 import SingleBrand from "../../Pages/SingleCategory/SingleBrand";
+import DashboardLayout from "../../Layout/DashboardLayout";
+import PaidDone from "../../Pages/Dashboard/Payment/PaidDone";
 
 export const router = createBrowserRouter([
     {
@@ -32,20 +32,20 @@ export const router = createBrowserRouter([
                 path: '/login',
                 element: <Login></Login>
             },
-            {
-                path: '/singlecategory/:id',
-                element: <SingleCategory></SingleCategory>,
-                loader: ({ params }) => fetch(`http://localhost:4000/singlecategory/${params.id}`)
-            },
+            // {
+            //     path: '/singlecategory/:id',
+            //     element: <SingleCategory></SingleCategory>,
+            //     loader: ({ params }) => fetch(`http://localhost:4000/singlecategory/${params.id}`)
+            // },
             {
                 path: '/mobile/:id',
                 element: <SingleMobile></SingleMobile>,
                 loader: ({ params }) => fetch(`http://localhost:4000/mobile/${params.id}`)
             },
             {
-                path: '/singlebrand/:brand',
+                path: '/singlebrand/:id',
                 element: <SingleBrand></SingleBrand>,
-                loader: ({ params }) => fetch(`http://localhost:4000/brandCollection?brand=${params.brand}`)
+                loader: ({ params }) => fetch(`http://localhost:4000/brandCollection?brand=${params.id}`)
             },
             {
                 path: '/signup',
@@ -73,7 +73,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <AdminRoute><AllPhone></AllPhone></AdminRoute>
+                element: <Dashboard></Dashboard>
             },
             {
                 path: '/dashboard/allusers',
@@ -84,6 +84,10 @@ export const router = createBrowserRouter([
                 element: <AdminRoute><AllSeller /></AdminRoute>
             },
 
+            {
+                path: '/dashboard/paiddone',
+                element: <PaidDone></PaidDone>
+            },
             {
                 path: '/dashboard/payment/:id',
                 element: <AdminRoute><Payment></Payment></AdminRoute>,
