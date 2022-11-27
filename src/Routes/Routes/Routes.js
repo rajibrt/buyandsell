@@ -17,6 +17,7 @@ import SingleMobile from "../../Pages/SingleMobile/SingleMobile";
 import SingleBrand from "../../Pages/SingleCategory/SingleBrand";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import PaidDone from "../../Pages/Dashboard/Payment/PaidDone";
+import MyPhone from "../../Pages/Dashboard/MyPhone/MyPhone";
 
 export const router = createBrowserRouter([
     {
@@ -87,6 +88,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/paiddone',
                 element: <PaidDone></PaidDone>
+            },
+            {
+                path: '/dashboard/myphone',
+                element: <MyPhone></MyPhone>
             },
             {
                 path: '/dashboard/payment/:id',

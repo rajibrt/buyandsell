@@ -18,6 +18,7 @@ const DashboardLayout = () => {
                     <ul className="menu p-4 w-80 bg-base-100 text-base-content">
                         {/* <!-- Sidebar content here --> */}
                         <li><Link to='/dashboard'>Booked Mobile</Link></li>
+                        <li><Link to='/dashboard/myphone'>My Mobile</Link></li>
                         {
                             <>
                                 <li><Link to='/dashboard/paiddone'>Paid</Link></li>

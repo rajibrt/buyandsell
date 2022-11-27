@@ -49,7 +49,7 @@ const SubmitMobile = () => {
                     location: data.location,
                     mobileno: data.mobileno,
                     description: data.description,
-                    name: data.model,
+                    model: data.model,
                     salesPrice: data.salesPrice,
                     image: imgData.data.url,
                     seller: user.email,
