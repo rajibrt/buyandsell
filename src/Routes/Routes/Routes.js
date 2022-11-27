@@ -14,6 +14,9 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import AddMobile from "../../Pages/AddMobile/AddMobile";
 import SubmitMobile from "../../Pages/AddMobile/SubmitMobile";
+import SingleCategory from "../../Pages/SingleCategory/SingleBrand";
+import SingleMobile from "../../Pages/SingleMobile/SingleMobile";
+import SingleBrand from "../../Pages/SingleCategory/SingleBrand";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +31,21 @@ export const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>
+            },
+            {
+                path: '/singlecategory/:id',
+                element: <SingleCategory></SingleCategory>,
+                loader: ({ params }) => fetch(`http://localhost:4000/singlecategory/${params.id}`)
+            },
+            {
+                path: '/mobile/:id',
+                element: <SingleMobile></SingleMobile>,
+                loader: ({ params }) => fetch(`http://localhost:4000/mobile/${params.id}`)
+            },
+            {
+                path: '/singlebrand/:brand',
+                element: <SingleBrand></SingleBrand>,
+                loader: ({ params }) => fetch(`http://localhost:4000/brandCollection?brand=${params.brand}`)
             },
             {
                 path: '/signup',

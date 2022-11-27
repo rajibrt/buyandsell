@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import CategoryCard from './CategoryCard';
 
 const Category = () => {
-
-
     const [mobileCategory, setMobileCategory] = useState([]);
     useEffect(() => {
         fetch('http://localhost:4000/category')
             .then(res => res.json())
             .then(data => setMobileCategory(data))
-    })
+    }, [])
 
     return (
         <div className="my-10 lg:mx-0 mx-4">
@@ -19,6 +17,7 @@ const Category = () => {
                     mobileCategory.map(card => <CategoryCard
                         key={card._id}
                         card={card}
+                        mobileCategory={mobileCategory}
                     ></CategoryCard>)
                 }
 

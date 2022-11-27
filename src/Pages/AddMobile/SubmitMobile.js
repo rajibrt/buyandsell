@@ -16,8 +16,8 @@ const SubmitMobile = () => {
     const navigate = useNavigate();
     const purchaseDate = format(selectedDate, 'PP');
     console.log(purchaseDate);
-    const submissionTime = format(selectedDate, 'PP');
-    console.log(submissionTime);
+    const submissionDate = format(new Date(), 'PP');
+    console.log(submissionDate);
 
     const { data: brand, isLoading } = useQuery({
         queryKey: ['brand'],
@@ -54,7 +54,7 @@ const SubmitMobile = () => {
                     image: imgData.data.url,
                     seller: user.email,
                     purchasesDate: purchaseDate,
-                    postDate: submissionTime
+                    postDate: submissionDate
                 }
 
                 fetch('http://localhost:4000/allmobile', {
