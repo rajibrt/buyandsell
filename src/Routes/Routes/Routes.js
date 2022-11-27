@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom"
 import Main from "../../Layout/Main"
-import AllSeller from "../../Pages/Dashboard/AllSeller/AllSeller";
-import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
+import AllSeller from "../../Pages/Dashboard/AllSellers/AllSellers";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
 import Payment from "../../Pages/Dashboard/Payment/Payment";
 import Home from "../../Pages/Home/Home"
@@ -12,12 +11,14 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import AddMobile from "../../Pages/AddMobile/AddMobile";
 import SubmitMobile from "../../Pages/AddMobile/SubmitMobile";
-import SingleCategory from "../../Pages/SingleCategory/SingleBrand";
 import SingleMobile from "../../Pages/SingleMobile/SingleMobile";
 import SingleBrand from "../../Pages/SingleCategory/SingleBrand";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import PaidDone from "../../Pages/Dashboard/Payment/PaidDone";
 import MyPhone from "../../Pages/Dashboard/MyPhone/MyPhone";
+import BookedPhone from "../../Pages/Dashboard/BookedPhone/BookedPhone";
+import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
+import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 
 export const router = createBrowserRouter([
     {
@@ -72,13 +73,29 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         errorElement: <DisplayError></DisplayError>,
         children: [
+            // {
+            //     path: '/dashboard',
+            //     element: <Dashboard></Dashboard>
+            // },
             {
                 path: '/dashboard',
-                element: <Dashboard></Dashboard>
+                element: <MyPhone></MyPhone>
             },
             {
-                path: '/dashboard/allusers',
-                element: <AdminRoute><AllUsers /></AdminRoute>
+                path: '/dashboard/bookedphone',
+                element: <BookedPhone></BookedPhone>
+            },
+            {
+                path: '/dashboard',
+                element: <MyPhone></MyPhone>
+            },
+            {
+                path: '/dashboard/allbuyers',
+                element: <AdminRoute><AllBuyers /></AdminRoute>
+            },
+            {
+                path: '/dashboard/allsellers',
+                element: <AdminRoute><AllSellers /></AdminRoute>
             },
             {
                 path: '/dashboard/adddoctor',
@@ -88,10 +105,6 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/paiddone',
                 element: <PaidDone></PaidDone>
-            },
-            {
-                path: '/dashboard/myphone',
-                element: <MyPhone></MyPhone>
             },
             {
                 path: '/dashboard/payment/:id',
