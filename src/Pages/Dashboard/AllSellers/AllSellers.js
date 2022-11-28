@@ -11,11 +11,6 @@ const AllSellers = () => {
         setDeletingSeller(null);
     }
 
-
-    // const allSellers = useLoaderData();
-    // console.log(allSellers);
-
-
     const { data: sellers, isLoading, refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
@@ -57,7 +52,7 @@ const AllSellers = () => {
 
     return (
         <div>
-            <h2>All Seller</h2>
+            <h2>All Sellers</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
 
