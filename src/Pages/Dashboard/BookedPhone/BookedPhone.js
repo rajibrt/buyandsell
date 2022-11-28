@@ -65,7 +65,7 @@ const BookedPhone = () => {
                             <th>Brand</th>
                             <th>Model</th>
                             <th>Price</th>
-                            <th>Delete</th>
+                            <th>Payment</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -83,16 +83,16 @@ const BookedPhone = () => {
                                 <td>{phone.brand}</td>
                                 <td>{phone.model}</td>
                                 <td>${phone.salesPrice}</td>
-                                <td>
-                                    <label onClick={() => setDeletingMobile(phone)} htmlFor="confirmation-modal" className="btn btn-sm btn-error">Delete</label>
-                                </td>
+                                {/* <td>
+                                    <label onClick={() => setDeletingMobile(phone)} htmlFor="confirmation-modal" className="btn btn-sm btn-error">Pay Now</label>
+                                </td> */}
                                 <td>
                                     {
-                                        phone.price && !phone.paid &&
+                                        // phone.price && !phone.paid &&
                                         <Link to={`/dashboard/payment/${phone._id}`}><button className='btn btn-primary btn-sm'>Pay</button></Link>
                                     }
                                     {
-                                        phone.price && phone.paid && <span className='text-primary'>Paid</span>
+                                        // phone.price && phone.paid && <span className='text-primary'>Paid</span>
                                     }
                                 </td>
                             </tr>)

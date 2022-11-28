@@ -14,7 +14,6 @@ import SubmitMobile from "../../Pages/AddMobile/SubmitMobile";
 import SingleMobile from "../../Pages/SingleMobile/SingleMobile";
 import SingleBrand from "../../Pages/SingleCategory/SingleBrand";
 import DashboardLayout from "../../Layout/DashboardLayout";
-import PaidDone from "../../Pages/Dashboard/Payment/PaidDone";
 import MyPhone from "../../Pages/Dashboard/MyPhone/MyPhone";
 import BookedPhone from "../../Pages/Dashboard/BookedPhone/BookedPhone";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
@@ -109,14 +108,9 @@ export const router = createBrowserRouter([
                 path: '/dashboard/adddoctor',
                 element: <AdminRoute><AllSeller /></AdminRoute>
             },
-
-            {
-                path: '/dashboard/paiddone',
-                element: <PaidDone></PaidDone>
-            },
             {
                 path: '/dashboard/payment/:id',
-                element: <AdminRoute><Payment></Payment></AdminRoute>,
+                element: <PrivateRoute><Payment></Payment></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:4000/bookings/${params.id}`)
             },
         ]

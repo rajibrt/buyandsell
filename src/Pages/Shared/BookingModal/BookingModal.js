@@ -56,25 +56,6 @@ const BookingModal = ({ bookedMobile, setBookedMobile }) => {
                 }
             })
 
-        // fetch('http://localhost:4000/bookedMobile', {
-        //     method: 'POST',
-        //     headers: {
-        //         'content-type': 'application/json',
-        //         authorization: `bearer ${localStorage.getItem('accessToken')}`
-        //     },
-        //     body: JSON.stringify(booking)
-        // })
-        //     .then(res => res.json())
-        //     .then(result => {
-        //         console.log(result);
-        //         if (bookedMobile.acknowledged) {
-        //             <div>
-        //                 {toast.success(`${bookedMobile.model} is booked successfully`)}
-        //                 < Toaster />
-        //             </div>
-        //         }
-        //         toast.success(`${bookedMobile.model} is booked successfully`)
-        //     })
         setBookedMobile(null);
     }
 

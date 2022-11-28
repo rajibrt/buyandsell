@@ -38,7 +38,7 @@ const DashboardLayout = () => {
                             isBuyer &&
                             <>
                                 <li><Link to='/dashboard/bookedphone'>Booked Mobile</Link></li>
-                                <li><Link to='/dashboard/paiddone'>Paid</Link></li>
+
                             </>
                         }
                         {
