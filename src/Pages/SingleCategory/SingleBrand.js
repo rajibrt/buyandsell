@@ -29,9 +29,11 @@ const SingleBrand = () => {
                     ></PhoneCard>)
                 }
             </div>
+
             {bookedMobile &&
                 <BookingModal
                     bookedMobile={bookedMobile}
+                    setBookedMobile={setBookedMobile}
                 ></BookingModal>
             }
 

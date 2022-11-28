@@ -74,9 +74,7 @@ const SubmitMobile = () => {
                                 {toast.success('Mobile added successfully!')}
                                 < Toaster />
                             </div>
-                            // event.target.reset();
                         }
-                        // navigate('/dashboard/mannagemobile')
                         toast.success(`${data.model} is added successfully`)
                     })
             })
