@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useLoaderData } from 'react-router-dom';
 import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
+
 import Loading from '../../Shared/Loading/Loading';
 
 const AllSellers = () => {
@@ -78,7 +78,7 @@ const AllSellers = () => {
                                     <td>{seller.name}</td>
                                     <td>{seller.email}</td>
                                     <td>
-                                        <label onClick={() => handleDeleteSeller(seller)} htmlFor="confirmation-modal" className="btn btn-sm btn-error">Delete</label>
+                                        <label onClick={() => setDeletingSeller(seller)} htmlFor="confirmation-modal" className="btn btn-sm btn-error">Delete</label>
                                     </td>
                                 </tr>
                             )

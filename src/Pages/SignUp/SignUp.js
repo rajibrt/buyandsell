@@ -30,7 +30,6 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                toast.success('User created successfully')
                 const userInfo = {
                     displayName: data.name
                 }
@@ -39,7 +38,7 @@ const SignUp = () => {
                     .then(() => {
                         saveUser(data.name, data.email, data.role);
                         <div>
-                            {toast.success('Service added successfully!')}
+                            {toast.success('Account created successfully!')}
                             < Toaster />
                         </div>
                     })
@@ -115,7 +114,6 @@ const SignUp = () => {
                         {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
                     </div>
                     <input className='btn w-full bg-accent my-4' value="Sign Up" type="submit" />
-                    < Toaster />
                     <p>Already have an account? <Link to='/login' className='text-secondary'>Please login</Link></p>
                     <div className="divider text-accent">OR</div>
                     <button className='btn w-full bg-white text-accent my-4 hover:text-white'>CONTINUE WITH GOOGLE</button>
