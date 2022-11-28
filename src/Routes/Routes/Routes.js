@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/singlebrand/:id',
-                element: <SingleBrand></SingleBrand>,
+                element: <PrivateRoute><SingleBrand></SingleBrand></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:4000/brandCollection?brand=${params.id}`)
             },
             {
@@ -74,12 +74,12 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         errorElement: <DisplayError></DisplayError>,
         children: [
-            // {
-            //     path: '/dashboard',
-            //     element: <Dashboard></Dashboard>
-            // },
             {
                 path: '/dashboard',
+                element: <Dashboard></Dashboard>
+            },
+            {
+                path: '/dashboard/myphone',
                 element: <MyPhone></MyPhone>
             },
             {

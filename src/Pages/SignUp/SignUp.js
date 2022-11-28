@@ -15,14 +15,16 @@ const SignUp = () => {
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail)
     const location = useLocation();
+    const navigate = useNavigate();
+
 
     const googleProviderLogin = new GoogleAuthProvider();
+
 
     if (token) {
         navigate("/")
 
     }
-    const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || '/';
 
@@ -59,7 +61,7 @@ const SignUp = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
-                navigate(from, { replace: true });
+                // navigate(from, { replace: true });
                 saveUser(user.name, user.email, user.role);
             })
             .catch(error => console.error(error))

@@ -25,7 +25,6 @@ const MyPhone = () => {
             const data = await res.json();
             return data;
         }
-
     })
 
     if (isLoading) {
@@ -51,11 +50,8 @@ const MyPhone = () => {
     return (
         <div>
             <h2>My Listed Mobile</h2>
-
-
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
-
                     <thead>
                         <tr>
                             <th>
