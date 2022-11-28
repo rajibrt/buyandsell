@@ -1,6 +1,8 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
+import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
@@ -8,12 +10,13 @@ import useToken from '../../hooks/useToken';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const { createUser, updateUser } = useContext(AuthContext)
+    const { createUser, updateUser, providerLogin } = useContext(AuthContext)
     const [signUpError, setSignUPError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail)
     const location = useLocation();
 
+    const googleProviderLogin = new GoogleAuthProvider();
 
     if (token) {
         navigate("/")
@@ -51,6 +54,17 @@ const SignUp = () => {
 
     }
 
+    const handleGoogleSignIn = () => {
+        return providerLogin(googleProviderLogin)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                navigate(from, { replace: true });
+
+            })
+            .catch(error => console.error(error))
+    }
+
     const saveUser = (name, email, role) => {
         const user = { name, email, role };
         fetch('http://localhost:4000/users', {
@@ -66,16 +80,7 @@ const SignUp = () => {
                 setCreatedUserEmail(email);
             })
     }
-    // const getUserToken = email => {
-    //     fetch(`http://localhost:4000/jwt?email=${email}`)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data.accessToken) {
-    //                 localStorage.setItem('accessToken', data.accessToken);
-    //                 navigate('/');
-    //             }
-    //         });
-    // }
+
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7 shadow-lg rounded-2xl'>
@@ -116,9 +121,11 @@ const SignUp = () => {
                     <input className='btn w-full bg-accent my-4' value="Sign Up" type="submit" />
                     <p>Already have an account? <Link to='/login' className='text-secondary'>Please login</Link></p>
                     <div className="divider text-accent">OR</div>
-                    <button className='btn w-full bg-white text-accent my-4 hover:text-white'>CONTINUE WITH GOOGLE</button>
                     {signUpError && <p className="text-red-600">{ }signUpError</p>}
                 </form>
+                <div className="form-control mt-6 flex gap-2">
+                    <button className='btn w-full bg-blue-500 hover:shadow-md border-none hover:text-black text-white' onClick={handleGoogleSignIn}><FaGoogle className='mr-2'></FaGoogle>Login with Google</button>
+                </div>
             </div>
         </div>
     );

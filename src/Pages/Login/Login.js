@@ -3,16 +3,19 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
+import { GoogleAuthProvider } from 'firebase/auth';
+import { FaGoogle } from 'react-icons/fa';
 
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, providerLogin } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
     const location = useLocation();
     const navigate = useNavigate();
+    const googleProviderLogin = new GoogleAuthProvider();
 
     const from = location.state?.from?.pathname || '/';
 
@@ -34,6 +37,17 @@ const Login = () => {
                 setLoginError(error.message);
             });
 
+    }
+
+    const handleGoogleSignIn = () => {
+        return providerLogin(googleProviderLogin)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                navigate(from, { replace: true });
+
+            })
+            .catch(error => console.error(error))
     }
 
     return (
@@ -70,8 +84,10 @@ const Login = () => {
                     </div>
                     <p>New to Doctors Portal? <Link to='/signup' className='text-secondary'>Create new account</Link></p>
                     <div className="divider text-accent">OR</div>
-                    <button className='btn w-full bg-white text-accent my-4 hover:text-white'>CONTINUE WITH GOOGLE</button>
                 </form>
+                <div className="form-control mt-6 flex gap-2">
+                    <button className='btn w-full bg-blue-500 hover:shadow-md border-none hover:text-black text-white' onClick={handleGoogleSignIn}><FaGoogle className='mr-2'></FaGoogle>Login with Google</button>
+                </div>
             </div>
         </div>
     );
