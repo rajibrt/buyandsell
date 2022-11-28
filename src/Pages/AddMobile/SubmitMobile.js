@@ -16,7 +16,7 @@ const SubmitMobile = () => {
     const navigate = useNavigate();
     const purchaseDate = format(selectedDate, 'PP');
     console.log(purchaseDate);
-    const submissionDate = format(new Date(), 'PP');
+    const submissionDate = format(new Date(), 'PPpp');
     console.log(submissionDate);
 
     const { data: brand, isLoading } = useQuery({

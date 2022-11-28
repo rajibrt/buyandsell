@@ -1,13 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
+import Loading from '../../Shared/Loading/Loading';
 
 const MyPhone = () => {
     const { user } = useContext(AuthContext);
+    const [deletingMobile, setDeletingMobile] = useState(null);
+    const closeModal = () => {
+        setDeletingMobile(null);
+    }
 
     const url = `http://localhost:4000/myphone?seller=${user?.email}`
-    const { data: myphone = [] } = useQuery({
+    const { data: myphone = [], isLoading, refetch } = useQuery({
         queryKey: ['mobile', user?.email],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -20,6 +27,27 @@ const MyPhone = () => {
         }
 
     })
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
+    const handleDeleteMobile = mobile => {
+        fetch(`http://localhost:4000/allmobile/${mobile._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success(`${myphone.model} deleted successfully`)
+                }
+            })
+    }
+
     return (
         <div>
             <h2>My Listed Mobile</h2>
@@ -57,7 +85,9 @@ const MyPhone = () => {
                                 <td>{phone.brand}</td>
                                 <td>{phone.model}</td>
                                 <td>${phone.salesPrice}</td>
-                                <td>{phone.slot}</td>
+                                <td>
+                                    <label onClick={() => setDeletingMobile(phone)} htmlFor="confirmation-modal" className="btn btn-sm btn-error">Delete</label>
+                                </td>
                                 <td>
                                     {
                                         phone.price && !phone.paid &&
@@ -72,18 +102,21 @@ const MyPhone = () => {
 
                     </tbody>
 
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-
                 </table>
             </div>
+            {
+                deletingMobile && <ConfirmationModal
+                    title={`Are you sure you want to delete?`}
+                    message={`If you delete ${deletingMobile.name}. It cannot be undone`}
+                    successAction={handleDeleteMobile}
+                    successButtonName="Delete"
+                    modalData={deletingMobile}
+                    closeModal={closeModal}
+                >
+
+                </ConfirmationModal>
+            }
+
         </div>
     );
 };

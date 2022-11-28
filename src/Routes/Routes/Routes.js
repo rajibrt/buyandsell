@@ -92,7 +92,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/allphones',
-                element: <AdminRoute><AllPhones /></AdminRoute>
+                element: <AdminRoute><AllPhones /></AdminRoute>,
+                loader: () => fetch('http://localhost:4000/allmobile')
             },
             {
                 path: '/dashboard/allbuyers',

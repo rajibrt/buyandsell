@@ -60,15 +60,30 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user);
                 navigate(from, { replace: true });
-
+                saveUser(user.name, user.email, user.role);
             })
             .catch(error => console.error(error))
     }
 
+    // const googleSaveUser = (name, email) => {
+    //     const user = { name, email };
+    //     fetch('http://localhost:4000/users', {
+    //         method: 'POST',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(user)
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setCreatedUserEmail(email);
+    //         })
+    // }
+
     const saveUser = (name, email, role) => {
         const user = { name, email, role };
         fetch('http://localhost:4000/users', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
@@ -76,7 +91,6 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
-                // getUserToken(email);
                 setCreatedUserEmail(email);
             })
     }
