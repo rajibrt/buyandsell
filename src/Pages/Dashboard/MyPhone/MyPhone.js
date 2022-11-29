@@ -13,8 +13,8 @@ const MyPhone = () => {
         setDeletingMobile(null);
     }
 
-    const url = `http://localhost:4000/myphone?seller=${user?.email}`
-    const { data: myphone = [], isLoading, refetch } = useQuery({
+    const url = `https://buynsell-server.vercel.app/myphone?seller=${user?.email}`
+    const { data: allmobile = [], isLoading, refetch } = useQuery({
         queryKey: ['mobile', user?.email],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -32,7 +32,7 @@ const MyPhone = () => {
     }
 
     const handleDeleteMobile = mobile => {
-        fetch(`http://localhost:4000/allmobile/${mobile._id}`, {
+        fetch(`https://buynsell-server.vercel.app/allmobile/${mobile._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -42,7 +42,7 @@ const MyPhone = () => {
             .then(data => {
                 if (data.deletedCount > 0) {
                     refetch();
-                    toast.success(`${myphone.model} deleted successfully`)
+                    toast.success(`${mobile.model} deleted successfully`)
                 }
             })
     }
@@ -70,27 +70,27 @@ const MyPhone = () => {
                     <tbody>
 
                         {
-                            myphone &&
-                            myphone?.map((phone, i) => <tr key={phone._id}>
+                            allmobile &&
+                            allmobile?.map((mobile, i) => <tr key={mobile._id}>
                                 <th>{i + 1}</th>
                                 <td>
                                     <div >
-                                        <img className="w-24 lg:rounded-xl rounded-sm" src={phone.image} alt="PhoneImage" />
+                                        <img className="w-24 lg:rounded-xl rounded-sm" src={mobile.image} alt="PhoneImage" />
                                     </div>
                                 </td>
-                                <td>{phone.brand}</td>
-                                <td>{phone.model}</td>
-                                <td>${phone.salesPrice}</td>
+                                <td>{mobile.brand}</td>
+                                <td>{mobile.model}</td>
+                                <td>${mobile.salesPrice}</td>
                                 <td>
-                                    <label onClick={() => setDeletingMobile(phone)} htmlFor="confirmation-modal" className="btn btn-sm btn-error">Delete</label>
+                                    <label onClick={() => setDeletingMobile(mobile)} htmlFor="confirmation-modal" className="btn btn-sm btn-error">Delete</label>
                                 </td>
                                 <td>
                                     {
-                                        phone.price && !phone.paid &&
-                                        <Link to={`/dashboard/payment/${phone._id}`}><button className='btn btn-primary btn-sm'>Pay</button></Link>
+                                        mobile.price && !mobile.paid &&
+                                        <Link to={`/dashboard/payment/${mobile._id}`}><button className='btn btn-primary btn-sm'>Pay</button></Link>
                                     }
                                     {
-                                        phone.price && phone.paid && <span className='text-primary'>Paid</span>
+                                        mobile.price && mobile.paid && <span className='text-primary'>Paid</span>
                                     }
                                 </td>
                             </tr>)
@@ -103,7 +103,7 @@ const MyPhone = () => {
             {
                 deletingMobile && <ConfirmationModal
                     title={`Are you sure you want to delete?`}
-                    message={`If you delete ${deletingMobile.name}. It cannot be undone`}
+                    message={`If you delete ${deletingMobile.model}. It cannot be undone`}
                     successAction={handleDeleteMobile}
                     successButtonName="Delete"
                     modalData={deletingMobile}

@@ -6,7 +6,8 @@ import PhoneCard from './PhoneCard';
 const SingleBrand = () => {
     const [bookedMobile, setBookedMobile] = useState(null);
     const brand = useLoaderData();
-    // const url = `http://localhost:4000/brandcollection?brand=${brand?.id}`;
+    console.log(brand);
+    // const url = `https://buynsell-server.vercel.app/brandcollection?brand=${brand?.id}`;
     // console.log(brand?.id);
     // const { data: brandcollection = [] } = useQuery({
     //     queryKey: ['brand', brand?.id],
@@ -19,7 +20,9 @@ const SingleBrand = () => {
     // })
     return (
         <div>
-            <h2>This is category page</h2>
+            <h2 className='text-xl text-center'>Please chose your desire mobile and booked now</h2>
+            <div className="divider"></div>
+
             <div className='grid xl:grid-cols-4 gap-4 grid-flow-col-1 my-4'>
                 {
                     brand.map(m => <PhoneCard

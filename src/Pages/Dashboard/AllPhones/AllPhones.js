@@ -14,7 +14,7 @@ const AllPhones = () => {
         queryKey: ['allmobile'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:4000/allmobile', {
+                const res = await fetch('https://buynsell-server.vercel.app/allmobile', {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -34,7 +34,7 @@ const AllPhones = () => {
     }
 
     const handleDeleteMobile = mobile => {
-        fetch(`http://localhost:4000/allmobile/${mobile._id}`, {
+        fetch(`https://buynsell-server.vercel.app/allmobile/${mobile._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -48,6 +48,7 @@ const AllPhones = () => {
                 }
             })
     }
+
     return (
         <div>
             <h2>All Buyers</h2>

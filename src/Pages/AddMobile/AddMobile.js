@@ -16,7 +16,7 @@
 //     const { data: brand, isLoading } = useQuery({
 //         queryKey: ['brand'],
 //         queryFn: async () => {
-//             const res = await fetch('http://localhost:4000/brand')
+//             const res = await fetch('https://buynsell-server.vercel.app/brand')
 //             const data = await res.json();
 //             return data;
 //         }
@@ -44,7 +44,7 @@
 //                     image: imgData.data.url
 //                 }
 //                 // save doctor information in the database
-//                 fetch('http://localhost:4000/allmobile', {
+//                 fetch('https://buynsell-server.vercel.app/allmobile', {
 //                     method: 'POST',
 //                     headers: {
 //                         'content-type': 'application/json',
@@ -88,7 +88,7 @@
 
 //         console.log(service)
 
-//         fetch('http://localhost:4000/allmobile', {
+//         fetch('https://buynsell-server.vercel.app/allmobile', {
 //             method: 'POST',
 //             headers: {
 //                 'content-type': 'application/json'

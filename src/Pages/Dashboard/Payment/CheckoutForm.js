@@ -4,14 +4,16 @@ import React, { useEffect, useState } from 'react';
 const CheckoutForm = ({ booking }) => {
     const [cardError, setCardError] = useState('');
     const [success, setSuccess] = useState('');
+    const [processing, setProcessing] = useState('false');
     const [transactionId, setTransactionId] = useState('');
     const [clientSecret, setClientSecret] = useState("");
+
     const stripe = useStripe();
     const elements = useElements();
-    const { salesPrice, buyerName, email } = booking;
+    const { salesPrice, buyerName, email, _id } = booking;
 
     useEffect(() => {
-        fetch("http://localhost:4000/create-payment-intent", {
+        fetch("https://buynsell-server.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -45,6 +47,7 @@ const CheckoutForm = ({ booking }) => {
             setCardError('');
         }
         setSuccess('');
+        setProcessing(true);
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -62,12 +65,32 @@ const CheckoutForm = ({ booking }) => {
             return;
         }
 
-        if (paymentIntent.status === "succeeded") {
-            setSuccess('Great! your payment was successfully')
-            setTransactionId(paymentIntent.id);
+        const payment = {
+            salesPrice,
+            paymentIntent: paymentIntent.id,
+            email,
+            bookingId: _id
         }
-        console.log('paymentIntent', paymentIntent);
 
+        if (paymentIntent.status === "succeeded") {
+            console.log('card info', card);
+            fetch('https://buynsell-server.vercel.app/payments', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify(payment)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.insertedId)
+                        setSuccess('Great! your payment was successfully');
+                    setTransactionId(paymentIntent.id);
+                })
+        }
+        setProcessing(false);
     }
 
 

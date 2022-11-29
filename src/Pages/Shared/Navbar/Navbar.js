@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaMobile } from "react-icons/fa";
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useSeller from '../../../hooks/useSeller';
+import logo from '../../../../src/assets/logo.svg'
 
 const Navbar = () => {
     const handleLogOut = () => {
@@ -16,6 +17,7 @@ const Navbar = () => {
     const menuItems = <React.Fragment>
 
         <li><Link to='/'>Home</Link></li>
+        <li><Link to='/blogs'>Blogs</Link></li>
         {
             user?.uid ?
                 <>
@@ -41,7 +43,8 @@ const Navbar = () => {
 
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl">Bye and Sell</Link>
+                {/* <Link to='/' className="btn btn-ghost normal-case text-xl">Bye and Sell</Link> */}
+                <Link to='/'><img className='lg:w-64 w-32' src={logo} alt="" /></Link>
             </div>
             <div>
                 <div className="navbar hidden lg:flex">
@@ -57,7 +60,7 @@ const Navbar = () => {
                     isSeller &&
                     <>
                         <div className="navbar">
-                            <Link to="/submitmobile" className="btn btn-success"><FaMobile className='text-2xl text-base-100 mr-2'></FaMobile>Add Mobile</Link>
+                            <Link to="/submitmobile" className="btn btn-primary"><FaMobile className='text-2xl text-base-100 mr-2'></FaMobile>Add Mobile</Link>
                         </div>
                     </>
                 }

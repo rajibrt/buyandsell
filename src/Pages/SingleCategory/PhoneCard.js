@@ -1,7 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import BookingModal from '../Shared/BookingModal/BookingModal';
-import toast from 'react-hot-toast';
 
 const PhoneCard = ({ m, setBookedMobile }) => {
 
@@ -12,7 +10,7 @@ const PhoneCard = ({ m, setBookedMobile }) => {
         queryKey: ['booked'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:4000/allmobile', {
+                const res = await fetch('https://buynsell-server.vercel.app/allmobile', {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -32,7 +30,7 @@ const PhoneCard = ({ m, setBookedMobile }) => {
     }
 
     // const handleBookMobile = mobile => {
-    //     fetch('http://localhost:4000/bookedMobile', {
+    //     fetch('https://buynsell-server.vercel.app/bookedMobile', {
     //         method: 'POST',
     //         headers: {
     //             authorization: `bearer ${localStorage.getItem('accessToken')}`

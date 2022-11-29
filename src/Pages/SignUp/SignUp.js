@@ -10,7 +10,7 @@ import useToken from '../../hooks/useToken';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const { createUser, updateUser, providerLogin } = useContext(AuthContext)
+    const { user, createUser, updateUser, providerLogin } = useContext(AuthContext)
     const [signUpError, setSignUPError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail)
@@ -61,30 +61,31 @@ const SignUp = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
-                // navigate(from, { replace: true });
-                saveUser(user.name, user.email, user.role);
+                googleSaveUser(user.displayName, user.email, user.Buyer);
+                navigate(from, { replace: true });
+
             })
             .catch(error => console.error(error))
     }
 
-    // const googleSaveUser = (name, email) => {
-    //     const user = { name, email };
-    //     fetch('http://localhost:4000/users', {
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(user)
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setCreatedUserEmail(email);
-    //         })
-    // }
+    const googleSaveUser = (name, email, role) => {
+        const user = { name, email, role };
+        fetch(`https://buynsell-server.vercel.app/users/:${email}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email);
+            })
+    }
 
     const saveUser = (name, email, role) => {
         const user = { name, email, role };
-        fetch('http://localhost:4000/users', {
+        fetch(`https://buynsell-server.vercel.app/users/:${email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

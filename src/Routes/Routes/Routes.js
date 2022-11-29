@@ -19,6 +19,7 @@ import BookedPhone from "../../Pages/Dashboard/BookedPhone/BookedPhone";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import AllPhones from "../../Pages/Dashboard/AllPhones/AllPhones";
+import Blogs from "../../Pages/Blogs/Blogs";
 
 export const router = createBrowserRouter([
     {
@@ -37,21 +38,25 @@ export const router = createBrowserRouter([
             // {
             //     path: '/singlecategory/:id',
             //     element: <SingleCategory></SingleCategory>,
-            //     loader: ({ params }) => fetch(`http://localhost:4000/singlecategory/${params.id}`)
+            //     loader: ({ params }) => fetch(`https://buynsell-server.vercel.app/singlecategory/${params.id}`)
             // },
             {
                 path: '/mobile/:id',
                 element: <SingleMobile></SingleMobile>,
-                loader: ({ params }) => fetch(`http://localhost:4000/mobile/${params.id}`)
+                loader: ({ params }) => fetch(`https://buynsell-server.vercel.app/mobile/${params.id}`)
             },
             {
                 path: '/singlebrand/:id',
                 element: <PrivateRoute><SingleBrand></SingleBrand></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:4000/brandCollection?brand=${params.id}`)
+                loader: ({ params }) => fetch(`https://buynsell-server.vercel.app/brandCollection?brand=${params.id}`)
             },
             {
                 path: '/signup',
                 element: <SignUp></SignUp>
+            },
+            {
+                path: '/blogs',
+                element: <Blogs></Blogs>
             },
             {
                 path: '/dashboard',
@@ -92,7 +97,7 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/allphones',
                 element: <AdminRoute><AllPhones /></AdminRoute>,
-                loader: () => fetch('http://localhost:4000/allmobile')
+                loader: () => fetch('https://buynsell-server.vercel.app/allmobile')
             },
             {
                 path: '/dashboard/allbuyers',
@@ -101,7 +106,7 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/allsellers',
                 element: <AdminRoute><AllSellers /></AdminRoute>,
-                loader: () => fetch('http://localhost:4000/users?role=Seller')
+                loader: () => fetch('https://buynsell-server.vercel.app/users?role=Seller')
 
             },
             {
@@ -110,8 +115,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/payment/:id',
-                element: <PrivateRoute><Payment></Payment></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:4000/bookings/${params.id}`)
+                element: <Payment></Payment>,
+                loader: ({ params }) => fetch(`https://buynsell-server.vercel.app/bookings/${params.id}`)
             },
         ]
     }

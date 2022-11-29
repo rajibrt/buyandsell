@@ -33,7 +33,7 @@ const BookingModal = ({ bookedMobile, setBookedMobile }) => {
             meetLocation
         }
 
-        fetch('http://localhost:4000/bookedMobile', {
+        fetch('https://buynsell-server.vercel.app/bookedMobile', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

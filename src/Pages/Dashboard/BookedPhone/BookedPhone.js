@@ -15,7 +15,7 @@ const BookedPhone = () => {
 
 
 
-    const url = `http://localhost:4000/buyerbookedphone?buyer=${user?.email}`
+    const url = `https://buynsell-server.vercel.app/buyerbookedphone?buyer=${user?.email}`
     const { data: bookedPhone = [], isLoading, refetch } = useQuery({
         queryKey: ['mobile', user?.email],
         queryFn: async () => {
@@ -34,7 +34,7 @@ const BookedPhone = () => {
     }
 
     const handleDeleteMobile = mobile => {
-        fetch(`http://localhost:4000/allbookedphone/${mobile._id}`, {
+        fetch(`https://buynsell-server.vercel.app/allbookedphone/${mobile._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -88,11 +88,11 @@ const BookedPhone = () => {
                                 </td> */}
                                 <td>
                                     {
-                                        // phone.price && !phone.paid &&
+                                        phone.salesPrice && !phone.paid &&
                                         <Link to={`/dashboard/payment/${phone._id}`}><button className='btn btn-primary btn-sm'>Pay</button></Link>
                                     }
                                     {
-                                        // phone.price && phone.paid && <span className='text-primary'>Paid</span>
+                                        phone.salesPrice && phone.paid && <span className='text-primary'>Paid</span>
                                     }
                                 </td>
                             </tr>)

@@ -15,7 +15,7 @@ const AllSellers = () => {
         queryKey: ['sellers'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:4000/users?role=Seller', {
+                const res = await fetch('https://buynsell-server.vercel.app/users?role=Seller', {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -35,7 +35,7 @@ const AllSellers = () => {
     }
 
     const handleDeleteSeller = users => {
-        fetch(`http://localhost:4000/users/${users._id}`, {
+        fetch(`https://buynsell-server.vercel.app/users/${users._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

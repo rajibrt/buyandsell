@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../Shared/Loading/Loading';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { DayPicker } from 'react-day-picker';
@@ -14,19 +14,22 @@ const SubmitMobile = () => {
     const { user } = useContext(AuthContext);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const navigate = useNavigate();
+    const location = useLocation();
     const purchaseDate = format(selectedDate, 'PP');
     console.log(purchaseDate);
     const submissionDate = format(new Date(), 'PPpp');
-    console.log(submissionDate);
+
 
     const { data: brand, isLoading } = useQuery({
         queryKey: ['brand'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:4000/brand')
+            const res = await fetch('https://buynsell-server.vercel.app/brand')
             const data = await res.json();
             return data;
         }
     })
+
+    const from = location.state?.from?.pathname || '/dashboard/myphone';
 
     const handleAddPhone = (data) => {
         console.log(data);
@@ -58,7 +61,7 @@ const SubmitMobile = () => {
                     postDate: submissionDate
                 }
 
-                fetch('http://localhost:4000/allmobile', {
+                fetch('https://buynsell-server.vercel.app/allmobile', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',
@@ -75,6 +78,7 @@ const SubmitMobile = () => {
                                 < Toaster />
                             </div>
                         }
+                        navigate(from, { replace: true });
                         toast.success(`${data.model} is added successfully`)
                     })
             })
