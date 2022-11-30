@@ -23,7 +23,7 @@ const SingleBrand = () => {
             <h2 className='text-xl text-center'>Please chose your desire mobile and booked now</h2>
             <div className="divider"></div>
 
-            <div className='grid xl:grid-cols-4 gap-4 grid-flow-col-1 my-4'>
+            <div className='grid xl:grid-cols-4 md:grid-cols-3 gap-4 grid-flow-col-1 my-4 mx-4'>
                 {
                     brand.map(m => <PhoneCard
                         key={m._id}

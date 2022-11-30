@@ -1,3 +1,38 @@
+> ### Website Name: `Buy & Sell - Used Phone`
+> * Client-side code GitHub repository: https://github.com/programming-hero-web-course-4/b612-used-products-resale-clients-side-rajibrt
+> * Server-side code GitHub repository: https://github.com/programming-hero-web-course-4/b612-used-products-resale-server-side-rajibrt
+> * Live website link: https://buynsell-34a2b.web.app/
+
+> ### Admin Access
+> * adminEmail: rajibrt@gmail.com
+> * adminPassword: Hero@siX
+
+
+###  What in this website:
+* Website for buy and sell used mobile phone
+* Worldwide access
+* Admin can delete any user and post
+* Full responsive design
+* Fast loading
+* Clean UI
+* User can review service and can delete review
+* Nice animation on various section and modules
+### I used for this website
+* React JS
+* Node JS
+* Tailwind
+* MongoDB
+* Firebase Auth
+* JWT token
+## Site deploy information
+* Database on mongoDb
+* File host on Firebase
+* Server on vercel
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

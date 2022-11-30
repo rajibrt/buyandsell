@@ -9,13 +9,16 @@ import { FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn, providerLogin } = useContext(AuthContext);
+    const { user, signIn, providerLogin } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
-    const [token] = useToken(loginUserEmail);
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail);
     const location = useLocation();
     const navigate = useNavigate();
     const googleProviderLogin = new GoogleAuthProvider();
+
+
 
     const from = location.state?.from?.pathname || '/';
 
@@ -29,7 +32,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                setLoginUserEmail(data.email)
+                setCreatedUserEmail(data.email)
 
             })
             .catch(error => {
@@ -44,10 +47,26 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
-                navigate(from, { replace: true });
+                googleSaveUser(user.displayName, user.email, 'Buyer');
+                setCreatedUserEmail(user.email)
 
             })
             .catch(error => console.error(error))
+    }
+
+    const googleSaveUser = (name, email, role) => {
+        const user = { name, email, role };
+        fetch('https://buynsell-server.vercel.app/users', {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email);
+            })
     }
 
     return (
@@ -86,7 +105,7 @@ const Login = () => {
                     <div className="divider text-accent">OR</div>
                 </form>
                 <div className="form-control mt-6 flex gap-2">
-                    <button className='btn w-full bg-blue-500 hover:shadow-md border-none hover:text-black text-white' onClick={handleGoogleSignIn}><FaGoogle className='mr-2'></FaGoogle>Login with Google</button>
+                    <button className='btn w-full bg-blue-500 hover:bg-blue-700 hover:shadow-md border-none hover:text-white text-white' onClick={handleGoogleSignIn}><FaGoogle className='mr-2'></FaGoogle>Login with Google</button>
                 </div>
             </div>
         </div>

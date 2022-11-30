@@ -1,7 +1,7 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -10,7 +10,7 @@ import useToken from '../../hooks/useToken';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const { user, createUser, updateUser, providerLogin } = useContext(AuthContext)
+    const { user, verifyEmail, createUser, updateUser, providerLogin } = useContext(AuthContext)
     const [signUpError, setSignUPError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail)
@@ -38,20 +38,18 @@ const SignUp = () => {
                 const userInfo = {
                     displayName: data.name
                 }
-                navigate(from, { replace: true });
+                // navigate(from, { replace: true });
                 updateUser(userInfo)
                     .then(() => {
                         saveUser(data.name, data.email, data.role);
-                        <div>
-                            {toast.success('Account created successfully!')}
-                            < Toaster />
-                        </div>
+                        toast.success('Account created successfully!')
                     })
                     .catch(error => console.log(error));
             })
             .catch(error => {
                 console.log(error)
                 setSignUPError(error.messages)
+                toast.error('Email already exist!')
             })
 
     }
@@ -61,8 +59,9 @@ const SignUp = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
-                googleSaveUser(user.displayName, user.email, user.Buyer);
-                navigate(from, { replace: true });
+                googleSaveUser(user.displayName, user.email, 'Buyer');
+                setCreatedUserEmail(user.email)
+                // navigate(from, { replace: true });
 
             })
             .catch(error => console.error(error))
@@ -70,7 +69,7 @@ const SignUp = () => {
 
     const googleSaveUser = (name, email, role) => {
         const user = { name, email, role };
-        fetch(`https://buynsell-server.vercel.app/users/:${email}`, {
+        fetch('https://buynsell-server.vercel.app/users', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -85,7 +84,7 @@ const SignUp = () => {
 
     const saveUser = (name, email, role) => {
         const user = { name, email, role };
-        fetch(`https://buynsell-server.vercel.app/users/:${email}`, {
+        fetch('https://buynsell-server.vercel.app/users', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -141,7 +140,7 @@ const SignUp = () => {
                     {signUpError && <p className="text-red-600">{ }signUpError</p>}
                 </form>
                 <div className="form-control mt-6 flex gap-2">
-                    <button className='btn w-full bg-blue-500 hover:shadow-md border-none hover:text-black text-white' onClick={handleGoogleSignIn}><FaGoogle className='mr-2'></FaGoogle>Login with Google</button>
+                    <button className='btn w-full bg-blue-500 hover:bg-blue-700 hover:shadow-md border-none hover:text-white text-white' onClick={handleGoogleSignIn}><FaGoogle className='mr-2'></FaGoogle>Login with Google</button>
                 </div>
             </div>
         </div>
