@@ -10,7 +10,7 @@ import useToken from '../../hooks/useToken';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const { user, verifyEmail, createUser, updateUser, providerLogin } = useContext(AuthContext)
+    const { user, createUser, updateUser, providerLogin } = useContext(AuthContext)
     const [signUpError, setSignUPError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail)

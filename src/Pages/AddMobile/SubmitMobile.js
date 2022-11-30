@@ -56,6 +56,7 @@ const SubmitMobile = () => {
                     salesPrice: data.salesPrice,
                     image: imgData.data.url,
                     seller: user.email,
+                    sellerName: user.displayName,
                     purchasesDate: purchaseDate,
                     originalPrice: data.originalPrice,
                     postDate: submissionDate

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { FaCheckCircle } from 'react-icons/fa';
 import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
 
 import Loading from '../../Shared/Loading/Loading';
@@ -50,6 +51,23 @@ const AllSellers = () => {
             })
     }
 
+    const handleVerify = (id) => {
+        fetch(`https://buynsell-server.vercel.app/users/verified/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success('Successfully verified')
+                    refetch();
+                }
+                console.log(data);
+            })
+    }
+
     return (
         <div>
             <h2>All Sellers</h2>
@@ -61,6 +79,7 @@ const AllSellers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Status</th>
                             <th>Admin Action</th>
                         </tr>
                     </thead>
@@ -72,6 +91,11 @@ const AllSellers = () => {
                                     <th>{i + 1}</th>
                                     <td>{seller.name}</td>
                                     <td>{seller.email}</td>
+                                    <td>{
+                                        seller?.status !== true ? <button onClick={() => handleVerify(seller._id)} className='btn btn-sm btn-primary'>Verify</button> :
+                                            // <h2 className='w-fit py-1 px-4 rounded-md bg-blue-600 text-white border-none cursor-context-menu'>Verified</h2>
+                                            <FaCheckCircle className='text-blue-600 text-xl'></FaCheckCircle>
+                                    }</td>
                                     <td>
                                         <label onClick={() => setDeletingSeller(seller)} htmlFor="confirmation-modal" className="btn btn-sm btn-error">Delete</label>
                                     </td>

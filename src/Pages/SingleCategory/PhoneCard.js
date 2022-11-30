@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { FaCheckCircle } from 'react-icons/fa';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const PhoneCard = ({ m, setBookedMobile }) => {
-
-    const { brand, condition, location, mobileno, model, salesPrice, originalPrice, postDate, purchasesDate, image, description } = m;
-    console.log(m);
+    const { user } = useContext(AuthContext);
+    const [status, setStatus] = useState(false);
+    const { seller, brand, sellerName, condition, location, mobileno, model, salesPrice, originalPrice, postDate, purchasesDate, image, description } = m;
 
     const { data: booked, isLoading, refetch } = useQuery({
         queryKey: ['booked'],
@@ -17,6 +19,26 @@ const PhoneCard = ({ m, setBookedMobile }) => {
                 });
                 const data = await res.json();
                 return data;
+            }
+            catch (error) {
+
+            }
+        }
+    });
+
+
+    const { data: sellers } = useQuery({
+        queryKey: ['seller'],
+        queryFn: async () => {
+            try {
+                const res = await fetch(`https://buynsell-server.vercel.app/allusers?email=${seller}`, {
+                    headers: {
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    }
+                });
+                const data = await res.json();
+                console.log('Status', data[0].status);
+                setStatus(data[0].status)
             }
             catch (error) {
 
@@ -49,6 +71,11 @@ const PhoneCard = ({ m, setBookedMobile }) => {
         <div>
             <div className="card bg-base-100 shadow-xl">
                 <figure><img src={image} alt="Shoes" /></figure>
+                <h2 className='flex items-center justify-center mt-2'>Seller: {sellerName} {
+                    status &&
+                    <FaCheckCircle className='text-blue-600 text-lg ml-2'></FaCheckCircle>
+                }</h2>
+                <div className="divider"></div>
                 <div className="card-body">
                     <h2 className="card-title">Brand: {brand}</h2>
                     <p>Model: {model}</p>
